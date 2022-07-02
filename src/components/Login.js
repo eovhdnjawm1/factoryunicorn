@@ -2,8 +2,9 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { changeURL } from '../store.js';
+import { changeURL } from '../store/urlSlice.js';
 import axios from 'axios';
+import { addUsers } from '../store/userSlice.js';
 
 
 
@@ -55,24 +56,28 @@ const UserInfoErrorMsg = styled.span`
 function Login() {
 	
 	const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  let BASE_URL = useSelector((state) => state.BASE_URL);
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
+	let BASE_URL = useSelector((state) => state.BASE_URL);
 
   const onVaild = async (data) => {
-    dispatch(changeURL(`/saveUser`));
 	const userUID = new Date().valueOf();
-	await axios.post(BASE_URL, {
+	await axios.post(BASE_URL + '/saveUser', {
 		phone: data.phoneNumber,
         userName: data.userName,
 		uid: userUID,
 	}).then((res) => {
-		console.log(res);
+		console.log(res.data.userData);
 		navigate("/saveInquiry")
+		dispatch(addUsers({
+			uid: res.data.userData.uid,
+			phone: res.data.userData.phone,
+			userName: res.data.userData.userName,
+		}))
 	}).catch((err) => {
 		alert(err);
 	})
