@@ -29,7 +29,7 @@ function Header() {
 		<Link to="/">
 		<div>고객 정보 입력</div>
 		</Link>
-		<Link to="/">
+		<Link to="/getUser">
 		<div>유저정보 조회</div>
 		</Link>
 		<Link to="/">
