@@ -7,7 +7,7 @@ import { addUsers } from '../store/userSlice.js';
 import axios from 'axios';
 
 
-const UserTitlte = styled.h1`
+const UserTitle = styled.h1`
 	font-weight: bold;
 	font-size: 20px;
 
@@ -97,7 +97,7 @@ function Login() {
       
       {/* <UserInfoContainer> */}
         <PhoneForm onSubmit={handleSubmit(onVaild)}>
-		<UserTitlte> 고객정보 입력</UserTitlte>
+		<UserTitle> 고객정보 입력</UserTitle>
           <UserInfoCategory>휴대폰 번호</UserInfoCategory>
           <UserInfoInput
             placeholder="(-)을 포함한 휴대폰번호 입력"

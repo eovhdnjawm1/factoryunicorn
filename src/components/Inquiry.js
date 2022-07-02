@@ -1,7 +1,6 @@
 
 import styled from 'styled-components';
 import { useForm } from "react-hook-form";
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux/es/exports';
 import axios from 'axios';
 
@@ -53,6 +52,16 @@ const InquiryErrorMsg = styled.span`
   color: red;
 `;
 
+const UserInfoData = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: flex-start;
+  margin-left: 10px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 12px;
+`;
 
 function Inquiry() {
 
@@ -67,10 +76,9 @@ function Inquiry() {
 	const onVaild = async (data) => {
 		await axios.post(BASE_URL + '/saveInquiry', {
 			inquiryInfo: data.Inquiry,
-			// uid: localStorage.getItem("uid"),
-			// phone: localStorage.getItem("phone"),
-			// userName: localStorage.getItem("userName"),
-			
+			uid: localStorage.getItem("uid"),
+			phone: localStorage.getItem("phone"),
+			userName: localStorage.getItem("userName"),
 		}).then((res) => {
 			console.log(res.data.userData);
 			localStorage.setItem("userName", res.data.userData.inquiryInfo)
@@ -84,9 +92,12 @@ function Inquiry() {
 	return(
 		<InquiryForm onSubmit={handleSubmit(onVaild)}>
 		<InquiryCategory>문의 하기</InquiryCategory>
-		<div>고객이름{localStorage.getItem("userName")}</div>
-		<div>고객폰번호{localStorage.getItem("phone")}</div>
-		<div>고객 uid{localStorage.getItem("uid")}</div>
+		<UserInfoData>
+
+		<div>성  함 : {localStorage.getItem("userName")}</div>
+		<div>휴대폰번호 : {localStorage.getItem("phone")}</div>
+		<div>고객 ID : {localStorage.getItem("uid")}</div>
+		</UserInfoData>
 			<InquiryInput placeholder='문의내용 입력' type={'text'} name="Inquiry" 
 			{...register("Inquiry", {
 				required: "문의 내용을 입력해주세요",

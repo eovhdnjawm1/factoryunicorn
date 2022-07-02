@@ -5,10 +5,9 @@ import { useState } from "react";
 import { useSelector } from "react-redux/es/exports";
 
 
-const GetUserTitlte = styled.h1`
+const GetUserTitle = styled.h1`
 	font-weight: bold;
 	font-size: 20px;
-
 `
 
 const GetUserForm = styled.form`
@@ -91,9 +90,8 @@ function GetUserData() {
   };
 
   return (
-    <>
       <GetUserForm onSubmit={handleSubmit(onValid)}>
-		<GetUserTitlte> 유저 정보 조회</GetUserTitlte>
+		<GetUserTitle> 고객 정보 조회</GetUserTitle>
         <GetUserInfoInput
           placeholder="고객의 휴대폰번호를 입력하세요"
           name="getInput"
@@ -113,7 +111,6 @@ function GetUserData() {
           <div>고객 번호 : {userPhoneNumber}</div>
         </UserInfoData>
       </GetUserForm>
-    </>
   );
 }
 

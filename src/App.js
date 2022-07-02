@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Inquiry from './components/Inquiry';
 import Login from "./components/Login";
 import GetUserData from './components/GetUser';
+import GetSingleInquiry from './components/GetSingleInquiry';
 
 const MainContainer = styled.div`
   display: flex;
@@ -35,8 +36,9 @@ function App() {
         <Title>팩토리 유니콘</Title>
           <Container>
             <Routes>
-              <Route path="/getUser" element={<GetUserData />} />
               <Route path="/saveInquiry" element={<Inquiry />} />
+              <Route path="/getUser" element={<GetUserData />} />
+              <Route path="/getSingleInquiry" element={<GetSingleInquiry />} />
               <Route path="/" element={<Login />} />
             </Routes>
           </Container>

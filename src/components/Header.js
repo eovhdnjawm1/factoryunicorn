@@ -32,7 +32,7 @@ function Header() {
 		<Link to="/getUser">
 		<div>유저정보 조회</div>
 		</Link>
-		<Link to="/">
+		<Link to="/getSingleInquiry">
 		<div>문의정보 단일 조회</div>
 		</Link>
 		<Link to="/">
