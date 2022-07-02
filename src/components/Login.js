@@ -2,12 +2,10 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { changeURL } from '../store.js';
+import axios from 'axios';
 
-const Title = styled.div`
-  font-size: 25px;
-  font-weight: bold;
-  margin: 35px 0;
-`;
+
 
 const PhoneForm = styled.form`
   display: flex;
@@ -32,13 +30,6 @@ const SubmitButton = styled.button`
     background-color: #0c387b;
   }
 `;
-const UserInfoContainer = styled.section`
-  width: 20rem;
-  height: 40rem;
-  background-color: #fff;
-  box-shadow: rgb(192, 192, 192) 0px 3px 8px 2px;
-  border-radius: 5%;
-`;
 
 const UserInfoInput = styled.input`
   border: none;
@@ -62,43 +53,36 @@ const UserInfoErrorMsg = styled.span`
 `;
 
 function Login() {
+	
 	const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  let BASE_URL = useSelector((state) => state);
+  let BASE_URL = useSelector((state) => state.BASE_URL);
   const dispatch = useDispatch();
 
   const onVaild = async (data) => {
-    console.log(data.phoneNumber);
-    dispatch({ type: "saveUser" });
-
-    // 번호를 받아왔으니 그거를 POST 해야한다.
-    try {
-      await fetch(BASE_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phone: data.phoneNumber,
-          userName: data.userName,
-        }),
-      });
-	  alert("넘어가욘");
-    } catch (err) {
-      alert(err);
-    }
-
+    dispatch(changeURL(`/saveUser`));
+	const userUID = new Date().valueOf();
+	await axios.post(BASE_URL, {
+		phone: data.phoneNumber,
+        userName: data.userName,
+		uid: userUID,
+	}).then((res) => {
+		console.log(res);
+		navigate("/saveInquiry")
+	}).catch((err) => {
+		alert(err);
+	})
 
   };
 
   return (
     <>
-      <Title>팩토리 유니콘</Title>
-      <UserInfoContainer>
+      
+      {/* <UserInfoContainer> */}
         <PhoneForm onSubmit={handleSubmit(onVaild)}>
           <UserInfoCategory>휴대폰 번호</UserInfoCategory>
           <UserInfoInput
@@ -130,7 +114,7 @@ function Login() {
 
           <SubmitButton>제출하기</SubmitButton>
         </PhoneForm>
-      </UserInfoContainer>
+      {/* </UserInfoContainer> */}
     </>
   );
 }
