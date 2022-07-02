@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Title = styled.div`
   font-size: 25px;
@@ -18,9 +19,32 @@ const PhoneForm = styled.form`
 function App() {
 
   const { register, handleSubmit, formState:{errors}} = useForm();
-  const onVaild = (data) => {
+  let BASE_URL = useSelector((state) => state);
+  const dispatch = useDispatch();
+  
+
+  const onVaild = async (data) => {
     console.log(data.phoneNumber);
+    dispatch({type: "saveUser"})
+
     // 번호를 받아왔으니 그거를 POST 해야한다.
+    try {
+      const res = await fetch(BASE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "phone" : data.phoneNumber,
+        })
+      })
+      
+      const json = await res.json();
+      console.log(json);
+    }
+    catch(err){
+      alert(err);
+    }
   }
   return (
     <div className="App">
