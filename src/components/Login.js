@@ -3,11 +3,15 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeURL } from '../store/urlSlice.js';
-import axios from 'axios';
 import { addUsers } from '../store/userSlice.js';
+import axios from 'axios';
 
 
+const UserTitlte = styled.h1`
+	font-weight: bold;
+	font-size: 20px;
 
+`
 const PhoneForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -93,6 +97,7 @@ function Login() {
       
       {/* <UserInfoContainer> */}
         <PhoneForm onSubmit={handleSubmit(onVaild)}>
+		<UserTitlte> 고객정보 입력</UserTitlte>
           <UserInfoCategory>휴대폰 번호</UserInfoCategory>
           <UserInfoInput
             placeholder="(-)을 포함한 휴대폰번호 입력"
