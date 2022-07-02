@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import styled from "styled-components";
+import Header from './components/Header';
 import Inquiry from './components/Inquiry';
 import Login from "./components/Login";
 
@@ -13,7 +14,7 @@ const MainContainer = styled.div`
 const Title = styled.div`
   font-size: 25px;
   font-weight: bold;
-  margin: 35px 0;
+  margin: 65px 0;
 `;
 
 const Container = styled.div`
@@ -28,8 +29,9 @@ function App() {
   return (
     <>
       <MainContainer>
-        <Title>팩토리 유니콘</Title>
         <BrowserRouter>
+        <Header/>
+        <Title>팩토리 유니콘</Title>
           <Container>
             <Routes>
               <Route path="/saveInquiry" element={<Inquiry />} />
