@@ -5,6 +5,7 @@ import Inquiry from './components/Inquiry';
 import Login from "./components/Login";
 import GetUserData from './components/GetUser';
 import GetSingleInquiry from './components/GetSingleInquiry';
+import GetAllInquiryData from './components/GetAllInquiry';
 
 const MainContainer = styled.div`
   display: flex;
@@ -39,6 +40,7 @@ function App() {
               <Route path="/saveInquiry" element={<Inquiry />} />
               <Route path="/getUser" element={<GetUserData />} />
               <Route path="/getSingleInquiry" element={<GetSingleInquiry />} />
+              <Route path="/getEntireInquiry" element={<GetAllInquiryData />} />
               <Route path="/" element={<Login />} />
             </Routes>
           </Container>

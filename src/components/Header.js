@@ -35,7 +35,7 @@ function Header() {
 		<Link to="/getSingleInquiry">
 		<div>문의정보 단일 조회</div>
 		</Link>
-		<Link to="/">
+		<Link to="/getEntireInquiry">
 		<div>문의정보 전체 조회</div>
 		</Link>
 	</Nav>

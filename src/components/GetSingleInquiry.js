@@ -73,7 +73,6 @@ function GetSingleInquiry(){
 	  let [inquiryData, setInquiryData] = useState("");
 	
 	  const onValid = (data) => {
-		console.log("검색");
 		axios
 		  .get(`${BASE_URL}/getSingleInquiry?uid=${data.getSingleInquiry}`)
 		  .then((res) => {
