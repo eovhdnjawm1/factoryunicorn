@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from './components/Header';
 import Inquiry from './components/Inquiry';
 import Login from "./components/Login";
+import GetUserData from './components/GetUser';
 
 const MainContainer = styled.div`
   display: flex;
@@ -34,6 +35,7 @@ function App() {
         <Title>팩토리 유니콘</Title>
           <Container>
             <Routes>
+              <Route path="/getUser" element={<GetUserData />} />
               <Route path="/saveInquiry" element={<Inquiry />} />
               <Route path="/" element={<Login />} />
             </Routes>
