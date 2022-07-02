@@ -1,33 +1,10 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
-
-// useState 역할
-let user = createSlice({
-	name: 'username',
-	initialState : 'kim',
-})
-
-
-let urls = createSlice({
-	name: "url",
-	initialState : "https://asia-northeast3-fu-webapp.cloudfunctions.net/api/codingTest",
-	reducers: {
-		changeURL(state, action) {
-			if (action){
-				return state += action.payload
-			}
-			else {
-				return null
-			}
-		},
-	}
-})
-
-export let { changeURL } = urls.actions;
-
+import url from './store/urlSlice.js'
+import users from './store/userSlice.js'
 
 export default configureStore({
   reducer: { 
-	user : user.reducer,
-	BASE_URL : urls.reducer,
+	users : users.reducer,
+	BASE_URL : url.reducer,
   }
 }) 
