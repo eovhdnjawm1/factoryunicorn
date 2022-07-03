@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux/es/exports";
-
+import Inquiry from "./Inquiry";
 
 const GetAllInquiryTitle = styled.h1`
-	font-weight: bold;
-	font-size: 20px;
-`
+  font-weight: bold;
+  font-size: 20px;
+`;
 
 const GetAllInquiryForm = styled.div`
   display: flex;
@@ -16,6 +16,7 @@ const GetAllInquiryForm = styled.div`
   align-items: center;
   row-gap: 15px;
   padding: 25px 10px;
+  height: 100%;
 `;
 
 const CheckButton = styled.button`
@@ -34,7 +35,6 @@ const CheckButton = styled.button`
   }
 `;
 
-
 const UserInfoData = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,41 +42,58 @@ const UserInfoData = styled.div`
   align-items: flex-start;
   margin-left: 10px;
   width: 100%;
+  height: 100%;
   font-weight: bold;
   font-size: 12px;
+  overflow-y: auto;
 `;
 
+const SingleUserDataCard = styled.div`
+	border-bottom: 1px whitesmoke solid;
+	padding: 10px 0;
+`
 
+const SingleUserData = styled.div`
+  font-weight: 300;
+  margin-bottom: 10px;
+`;
 
-function GetAllInquiryData(){
-	  let BASE_URL = useSelector((state) => state.BASE_URL);
-	  let [inquiryData, setInquiryData] = useState("");
-	
-	  const allSearch = () => {
-		axios
-		  .get(`${BASE_URL}/getEntireInquiry`)
-		  .then((res) => {
-			// setInquiryData(res.data.inquiryInfo)
-			// 이름, 번호, id, 문의내역 state 만들고 공개하기
-			// 500번대 에러로 json이 반영이 안되니 확인불가
-			console.log(res)
-		  })
-		  .catch((err) => {
-			console.log("실패")
-		  });
-	  };
+function InquiryCard({ inquiryData }) {
+  return (
+    <SingleUserDataCard>
+      <SingleUserData>UID : {inquiryData.uid}</SingleUserData>
+      <SingleUserData>문의사항 : {inquiryData.message}</SingleUserData>
+    </SingleUserDataCard>
+  );
+}
+function GetAllInquiryData() {
+  let BASE_URL = useSelector((state) => state.BASE_URL);
+  let [inquiryData, setInquiryData] = useState({});
 
-
-	return(
-		<GetAllInquiryForm>
-		<GetAllInquiryTitle> 고객 문의정보 전체 조회</GetAllInquiryTitle>
-        <CheckButton onClick={allSearch()}>조회</CheckButton>
-        <UserInfoData>
-          <div>문의 내용  </div>
-          <div>{inquiryData}</div>
-        </UserInfoData>
-      </GetAllInquiryForm>
-	)
+  function allSearch() {
+    axios
+      .get(`${BASE_URL}/getEntireInquiry`)
+      .then((res) => {
+        setInquiryData(res.data);
+      })
+      .catch((err) => {
+        console.log("실패");
+      });
+  }
+  console.log(inquiryData);
+  const inquiryCards = Object.keys(inquiryData).map((key) => (
+    <InquiryCard key={key} inquiryData={inquiryData[key]} />
+  ));
+  return (
+    <GetAllInquiryForm>
+      <GetAllInquiryTitle> 고객 문의정보 전체 조회</GetAllInquiryTitle>
+      <CheckButton onClick={allSearch}>조회</CheckButton>
+      <UserInfoData>
+        <div>문의 내용 </div>
+        {inquiryCards}
+      </UserInfoData>
+    </GetAllInquiryForm>
+  );
 }
 
 export default GetAllInquiryData;
