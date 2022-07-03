@@ -70,7 +70,6 @@ function GetUserData() {
   let BASE_URL = useSelector((state) => state.BASE_URL);
 
   let [userName, setUserName] = useState("");
-  let [userID, setUserID] = useState("");
   let [userPhoneNumber, setUserPhoneNumber] = useState("");
 
   const onValid = (data) => {
@@ -79,12 +78,11 @@ function GetUserData() {
       .get(`${BASE_URL}/getUser?phone=${data.getInput}`)
       .then((res) => {
         setUserName(res.data.userName);
-        setUserID(res.data.uid);
         setUserPhoneNumber(res.data.phone);
+		
       })
       .catch((err) => {
         setUserName("해당 고객은 없습니다");
-        setUserID("");
         setUserPhoneNumber("");
       });
   };
@@ -107,7 +105,6 @@ function GetUserData() {
         <SubmitButton>입력</SubmitButton>
         <UserInfoData>
           <div>고객 이름 : {userName} </div>
-          <div>고객 ID : {userID}</div>
           <div>고객 번호 : {userPhoneNumber}</div>
         </UserInfoData>
       </GetUserForm>
