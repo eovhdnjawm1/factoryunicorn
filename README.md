@@ -1,3 +1,8 @@
+- gh-pages 를 사용한 웹페이지 생성
+- Link : https://eovhdnjawm1.github.io/factoryunicorn/
+
+---
+
 1. GlobalStyled Components 사용
 
 2. styled components 사용
@@ -15,6 +20,8 @@
 5. react hook form 사용
 
 - 각 화면 Input, form에 사용하여 에러 핸들링 및 관리
+
+---
 
 ## 그 외
 
