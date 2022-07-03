@@ -37,7 +37,7 @@ function App() {
   return (
     <>
       <MainContainer>
-        <BrowserRouter>
+        <BrowserRouter basename='/factoryunicorn'>
         <Header/>
         <Title>팩토리 유니콘</Title>
           <Container>
