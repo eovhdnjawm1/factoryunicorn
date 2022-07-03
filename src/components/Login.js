@@ -60,7 +60,6 @@ const UserInfoErrorMsg = styled.span`
 function Login() {
 	
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	const {
 		register,
 		handleSubmit,
@@ -69,23 +68,14 @@ function Login() {
 	let BASE_URL = useSelector((state) => state.BASE_URL);
 
   const onVaild = async (data) => {
-	// uid 값 생성
-	const userUID = new Date().valueOf();
 	await axios.post(BASE_URL + '/saveUser', {
 		phone: data.phoneNumber,
         userName: data.userName,
-		uid: userUID,
 	}).then((res) => {
 		console.log(res.data.userData);
-		localStorage.setItem("uid", res.data.userData.uid)
 		localStorage.setItem("phone", res.data.userData.phone)
 		localStorage.setItem("userName", res.data.userData.userName)
 		navigate("/saveInquiry")
-		// dispatch(addUsers({
-		// 	uid: res.data.userData.uid,
-		// 	phone: res.data.userData.phone,
-		// 	userName: res.data.userData.userName,
-		// }))
 	}).catch((err) => {
 		alert(err);
 	})
