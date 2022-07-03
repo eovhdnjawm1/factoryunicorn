@@ -17,10 +17,15 @@ const MainContainer = styled.div`
 const Title = styled.div`
   font-size: 25px;
   font-weight: bold;
-  margin: 65px 0;
+  margin-top: 65px;
+
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const Container = styled.div`
+  margin-top: 65px;
   width: 20rem;
   height: 40rem;
   background-color: #fff;

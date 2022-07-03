@@ -59,7 +59,19 @@ const UserInfoData = styled.div`
   width: 100%;
   font-weight: bold;
   font-size: 12px;
+  padding: 0 10px;
 `;
+
+const SingleDataTitle = styled.div`
+	font-size: 16px;
+`
+
+const SingleDataCard = styled.div`
+	margin-bottom: 15px;
+	font-weight: 300;
+	padding-bottom: 10px;
+	border-bottom: 2px whitesmoke solid;
+`
 
 function GetSingleInquiry(){
 
@@ -71,12 +83,14 @@ function GetSingleInquiry(){
 	  } = useForm();
 	  let BASE_URL = useSelector((state) => state.BASE_URL);
 	  let [inquiryData, setInquiryData] = useState("");
+	  let [userID, setUserId] = useState("");
 	
 	  const onValid = (data) => {
 		axios
 		  .get(`${BASE_URL}/getSingleInquiry?uid=${data.getSingleInquiry}`)
 		  .then((res) => {
-			setInquiryData(res.data.inquiryInfo)
+			setInquiryData(res.data.message)
+			setUserId(res.data.uid);
 		  })
 		  .catch((err) => {
 			setInquiryData("문의 내역이 없거나 고객이 아닙니다.");
@@ -90,18 +104,20 @@ function GetSingleInquiry(){
           placeholder="고객의 ID를 입력하세요"
           name="getSingleInquiry"
           {...register("getSingleInquiry", {
-            required: "숫자만 입력하세요",
-            pattern: {
-              value: /^[0-9]+$/,
-              message: "숫자만 입력해주세요",
+            required: "ID를 입력해주세요",
+            minLength: {
+              value: 5,
+              message: "정확한 ID를 입력해주세요",
             },
           })}
         />
         <UserInfoErrorMsg>{errors.getSingleInquiry?.message} </UserInfoErrorMsg>
         <SubmitButton>입력</SubmitButton>
         <UserInfoData>
-          <div>문의 내용  </div>
-          <div>{inquiryData}</div>
+		  <SingleDataTitle>유저 ID </SingleDataTitle>
+		  <SingleDataCard> {userID} </SingleDataCard>
+		  <SingleDataTitle>문의 내역</SingleDataTitle>
+          <SingleDataCard>{inquiryData}</SingleDataCard>
         </UserInfoData>
       </GetSingleInquiryForm>
 	)

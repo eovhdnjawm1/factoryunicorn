@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux/es/exports";
-import Inquiry from "./Inquiry";
 
 const GetAllInquiryTitle = styled.h1`
   font-weight: bold;
@@ -55,17 +53,11 @@ const SingleUserDataCard = styled.div`
 
 const SingleUserData = styled.div`
   font-weight: 300;
+  padding-right: 10px;
   margin-bottom: 10px;
 `;
 
-function InquiryCard({ inquiryData }) {
-  return (
-    <SingleUserDataCard>
-      <SingleUserData>UID : {inquiryData.uid}</SingleUserData>
-      <SingleUserData>문의사항 : {inquiryData.message}</SingleUserData>
-    </SingleUserDataCard>
-  );
-}
+
 function GetAllInquiryData() {
   let BASE_URL = useSelector((state) => state.BASE_URL);
   let [inquiryData, setInquiryData] = useState({});
@@ -77,10 +69,9 @@ function GetAllInquiryData() {
         setInquiryData(res.data);
       })
       .catch((err) => {
-        console.log("실패");
+        alert("통신에 실패하였습니다")
       });
   }
-  console.log(inquiryData);
   const inquiryCards = Object.keys(inquiryData).map((key) => (
     <InquiryCard key={key} inquiryData={inquiryData[key]} />
   ));
@@ -95,5 +86,15 @@ function GetAllInquiryData() {
     </GetAllInquiryForm>
   );
 }
+
+function InquiryCard({ inquiryData }) {
+	
+	return (
+	  <SingleUserDataCard>
+		<SingleUserData>UID : {inquiryData.uid}</SingleUserData>
+		<SingleUserData>문의사항 : {inquiryData.message}</SingleUserData>
+	  </SingleUserDataCard>
+	);
+  }
 
 export default GetAllInquiryData;

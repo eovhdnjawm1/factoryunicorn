@@ -73,14 +73,16 @@ function GetUserData() {
   let [userPhoneNumber, setUserPhoneNumber] = useState("");
 
   const onValid = (data) => {
-    console.log("검색");
     axios
       .get(`${BASE_URL}/getUser?phone=${data.getInput}`)
       .then((res) => {
         setUserName(res.data.userName);
         setUserPhoneNumber(res.data.phone);
+		console.log("res.data", res)
 		
-      })
+      }).then(() => {
+		axios.get(`${BASE_URL}/getSingleInquiry`)
+	  })
       .catch((err) => {
         setUserName("해당 고객은 없습니다");
         setUserPhoneNumber("");
